@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  dir: 'src/'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['functions', 'deploy', 'github-webhook-function', '--trigger-http', '--runtime', 'nodejs10']
+  dir: 'src/'
