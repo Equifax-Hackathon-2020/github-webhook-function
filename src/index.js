@@ -16,6 +16,7 @@ const firestore = new Firestore({
   timestampsInSnapshots: true,
 })
 const secret = '59547cac21757ca62d28dc60ccf3c0748a1427de';
+const sigHeaderName = 'X-Hub-Signature'
 
 exports.helloWorld = (req, res) => {
   if (verifyPostData(req, res)) {
