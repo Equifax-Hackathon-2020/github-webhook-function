@@ -22,7 +22,7 @@ exports.helloWorld = (req, res) => {
   let message = req.query.message || req.body.message || 'No data!'
   console.log(message)
   
-  if (verifyPostData(req, res)) {
+  //if (verifyPostData(req, res)) {
     const created = new Date().getTime()
     var myJsonObject = JSON.parse(message)
     myJsonObject.created = created
@@ -36,9 +36,9 @@ exports.helloWorld = (req, res) => {
       })
     
       res.status(200).send('success')
-  } else {
-      res.status(200).send('fail')
-  }
+  //} else {
+  //    res.status(400).send('fail')
+  //}
 }
 
 function verifyPostData(req, res) {
