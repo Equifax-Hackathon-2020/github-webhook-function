@@ -33,6 +33,7 @@ exports.helloWorld = (req, res) => {
         console.error(err)
       })
   }
+  res.status(200).send('hello world')
 }
 
 function verifyPostData(req, res) {
