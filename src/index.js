@@ -33,8 +33,10 @@ exports.helloWorld = (req, res) => {
       }).catch(err => {
         console.error(err)
       })
+      res.status(200).send('success')
+  } else {
+      res.status(200).send('fail')
   }
-  res.status(200).send('hello world')
 }
 
 function verifyPostData(req, res) {
