@@ -21,7 +21,7 @@ const sigHeaderName = 'X-Hub-Signature'
 exports.helloWorld = (req, res) => {
   if (verifyPostData(req, res)) {
     let message = req.query.message || req.body.message || 'No data!'
-
+    console.log(message)
     const created = new Date().getTime()
     var myJsonObject = JSON.parse(message)
     myJsonObject.created = created
