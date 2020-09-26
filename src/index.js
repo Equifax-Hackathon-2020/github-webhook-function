@@ -35,20 +35,20 @@ exports.helloWorld = (req, res) => {
         console.error(err)
       })
     
-      res.status(200).send('success')
+      res.status(200).send(message)
   //} else {
   //    res.status(400).send('fail')
   //}
 }
 
-function verifyPostData(req, res) {
+function verifyPostData(request) {
   const payload = JSON.stringify(req.body)
   if (!payload) {
     //return next('Request body empty')
     return false
   }
 
-  const sig = req.get(sigHeaderName) || ''
+  const sig = request.get(sigHeaderName) || ''
   const hmac = crypto.createHmac('sha1', secret)
   const digest = Buffer.from('sha1=' + hmac.update(payload).digest('hex'), 'utf8')
   const checksum = Buffer.from(sig, 'utf8')
