@@ -1,4 +1,7 @@
 {
   "name": "github-webhook-function",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "@google-cloud/firestore": "0.17.0"
+  }
 }
