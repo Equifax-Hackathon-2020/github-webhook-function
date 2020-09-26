@@ -8,7 +8,6 @@
  */
 const Firestore = require('@google-cloud/firestore')
 const crypto = require('crypto')
-const { exit } = require('process')
 var bodyParser = require('body-parser');
 
 const PROJECTID = 'equifax-hackathon-2020'
@@ -26,7 +25,6 @@ exports.helloWorld = (req, res) => {
   const message = req.query.message || req.body.message || 'No data!'
   console.log(message)
   res.status(200).send(message)
-  exit() 
 
   //if (verifyPostData(req)) {
     const created = new Date().getTime()
