@@ -19,9 +19,10 @@ const secret = '59547cac21757ca62d28dc60ccf3c0748a1427de';
 const sigHeaderName = 'X-Hub-Signature'
 
 exports.helloWorld = (req, res) => {
+  let message = req.query.message || req.body.message || 'No data!'
+  console.log(message)
+  
   if (verifyPostData(req, res)) {
-    let message = req.query.message || req.body.message || 'No data!'
-    console.log(message)
     const created = new Date().getTime()
     var myJsonObject = JSON.parse(message)
     myJsonObject.created = created
@@ -33,6 +34,7 @@ exports.helloWorld = (req, res) => {
       }).catch(err => {
         console.error(err)
       })
+    
       res.status(200).send('success')
   } else {
       res.status(200).send('fail')
