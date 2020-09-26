@@ -16,13 +16,14 @@ const firestore = new Firestore({
   timestampsInSnapshots: true,
 })
 const secret = '59547cac21757ca62d28dc60ccf3c0748a1427de';
-const sigHeaderName = 'X-Hub-Signature'
+const sigHeaderName = 'x-hub-signature'
 
 exports.helloWorld = (req, res) => {
-  let message = req.query.message || req.body.message || 'No data!'
+  const message = req.query.message || req.body.message || 'No data!'
   console.log(message)
+  res.status(200).send(message)
   
-  //if (verifyPostData(req, res)) {
+  //if (verifyPostData(req)) {
     const created = new Date().getTime()
     var myJsonObject = JSON.parse(message)
     myJsonObject.created = created
@@ -42,9 +43,9 @@ exports.helloWorld = (req, res) => {
 }
 
 function verifyPostData(request) {
-  const payload = JSON.stringify(req.body)
+  const payload = JSON.stringify(request.body)
   if (!payload) {
-    //return next('Request body empty')
+    console.log('Request body empty')
     return false
   }
 
@@ -53,7 +54,7 @@ function verifyPostData(request) {
   const digest = Buffer.from('sha1=' + hmac.update(payload).digest('hex'), 'utf8')
   const checksum = Buffer.from(sig, 'utf8')
   if (checksum.length !== digest.length || !crypto.timingSafeEqual(digest, checksum)) {
-    //return next(`Request body digest (${digest}) did not match ${sigHeaderName} (${checksum})`)
+    console.log('Request body digest ', digest, ' did not match ', sigHeaderName, ' ', checksum)
     return false
   }
   return true
