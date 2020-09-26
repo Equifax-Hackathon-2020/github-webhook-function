@@ -26,7 +26,7 @@ exports.helloWorld = (req, res) => {
   console.log(message)
   res.status(200).send(message)
 
-  //if (verifyPostData(req)) {
+  /*if (verifyPostData(req)) {
     const created = new Date().getTime()
     var myJsonObject = JSON.parse(message)
     myJsonObject.created = created
@@ -40,12 +40,12 @@ exports.helloWorld = (req, res) => {
       })
     
       res.status(200).send(message)
-  //} else {
-  //    res.status(400).send('fail')
-  //}
+  } else {
+      res.status(400).send('fail')
+  }*/
 }
 
-function verifyPostData(request) {
+/*function verifyPostData(request) {
   const payload = JSON.stringify(request.body)
   if (!payload) {
     console.log('Request body empty')
@@ -61,4 +61,4 @@ function verifyPostData(request) {
     return false
   }
   return true
-}
+}*/
