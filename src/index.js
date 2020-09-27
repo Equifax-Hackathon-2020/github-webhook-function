@@ -20,6 +20,7 @@ const firestore = new Firestore({
 const secret = '59547cac21757ca62d28dc60ccf3c0748a1427de';
 const sigHeaderName = 'x-hub-signature'
 
+const app = express()
 app.use(bodyParser.json()); 
 
 exports.helloWorld = (req, res) => {
