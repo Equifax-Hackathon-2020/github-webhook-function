@@ -8,8 +8,7 @@
  */
 const Firestore = require('@google-cloud/firestore')
 const crypto = require('crypto')
-const express = require('express')
-var bodyParser = require('body-parser');
+//const express = require('express')
 
 const PROJECTID = 'equifax-hackathon-2020'
 const COLLECTION_NAME = 'function-test-data'
@@ -20,15 +19,12 @@ const firestore = new Firestore({
 const secret = '59547cac21757ca62d28dc60ccf3c0748a1427de';
 const sigHeaderName = 'x-hub-signature'
 
-const app = express()
-app.use(bodyParser.json()); 
+//const app = express()
+//app.use(express.json()); 
 
 exports.helloWorld = (req, res) => {
-  const message = req.query.message || req.body.message || 'No data!'
-  console.log(req.query.message)
-  console.log(req.query.body)
-  console.log(req.body.message)
-  //console.log(message)
+  const message = req.query.message || req.body.message || JSON.stringify(req.body) || 'No data!'
+  console.log(message)
   res.status(200).send(message)
 
   /*if (verifyPostData(req)) {
