@@ -24,9 +24,10 @@ const sigHeaderName = 'x-hub-signature'
 
 exports.helloWorld = (req, res) => {
   const message = req.query.message || req.body.message || JSON.stringify(req.body) || 'No data!'
-  console.log(message)
+  console.log('sigHeaderName = ', req.get(sigHeaderName))
   res.status(200).send(message)
 
+  verifyPostData(req);
   /*if (verifyPostData(req)) {
     const created = new Date().getTime()
     var myJsonObject = JSON.parse(message)
@@ -46,13 +47,14 @@ exports.helloWorld = (req, res) => {
   }*/
 }
 
-/*function verifyPostData(request) {
+function verifyPostData(request) {
   const payload = JSON.stringify(request.body)
   if (!payload) {
     console.log('Request body empty')
     return false
   }
 
+  console.log('Verifying post data')
   const sig = request.get(sigHeaderName) || ''
   const hmac = crypto.createHmac('sha1', secret)
   const digest = Buffer.from('sha1=' + hmac.update(payload).digest('hex'), 'utf8')
@@ -61,5 +63,6 @@ exports.helloWorld = (req, res) => {
     console.log('Request body digest ', digest, ' did not match ', sigHeaderName, ' ', checksum)
     return false
   }
+  console.log('Successfully verified post data')
   return true
-}*/
+}
