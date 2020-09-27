@@ -8,7 +8,7 @@
  */
 const Firestore = require('@google-cloud/firestore')
 const crypto = require('crypto')
-const express = require('express')
+//const express = require('express')
 var bodyParser = require('body-parser');
 
 const PROJECTID = 'equifax-hackathon-2020'
