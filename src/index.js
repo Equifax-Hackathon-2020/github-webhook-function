@@ -8,7 +8,6 @@
  */
 const Firestore = require('@google-cloud/firestore')
 const crypto = require('crypto')
-//const express = require('express')
 
 const PROJECTID = 'equifax-hackathon-2020'
 const COLLECTION_NAME = 'function-test-data'
@@ -19,18 +18,12 @@ const firestore = new Firestore({
 const secret = '59547cac21757ca62d28dc60ccf3c0748a1427de';
 const sigHeaderName = 'x-hub-signature'
 
-//const app = express()
-//app.use(express.json()); 
-
 exports.helloWorld = (req, res) => {
-  const message = req.query.message || req.body.message || JSON.stringify(req.body) || 'No data!'
-  console.log('sigHeaderName = ', req.get(sigHeaderName))
-  res.status(200).send(message)
+  const message = JSON.stringify(req.body) || 'No data!'
 
-  verifyPostData(req);
-  /*if (verifyPostData(req)) {
-    const created = new Date().getTime()
+  if (verifyPostData(req)) {
     var myJsonObject = JSON.parse(message)
+    const created = new Date().getTime()
     myJsonObject.created = created
 
     return firestore.collection(COLLECTION_NAME)
@@ -41,10 +34,10 @@ exports.helloWorld = (req, res) => {
         console.error(err)
       })
     
-      res.status(200).send(message)
+      res.status(200).send('success')
   } else {
       res.status(400).send('fail')
-  }*/
+  }
 }
 
 function verifyPostData(request) {
@@ -54,7 +47,6 @@ function verifyPostData(request) {
     return false
   }
 
-  console.log('Verifying post data')
   const sig = request.get(sigHeaderName) || ''
   const hmac = crypto.createHmac('sha1', secret)
   const digest = Buffer.from('sha1=' + hmac.update(payload).digest('hex'), 'utf8')
@@ -63,6 +55,5 @@ function verifyPostData(request) {
     console.log('Request body digest ', digest, ' did not match ', sigHeaderName, ' ', checksum)
     return false
   }
-  console.log('Successfully verified post data')
   return true
 }
