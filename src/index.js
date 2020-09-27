@@ -25,7 +25,10 @@ app.use(bodyParser.json());
 
 exports.helloWorld = (req, res) => {
   const message = req.query.message || req.body.message || 'No data!'
-  console.log(message)
+  console.log(req.query.message)
+  console.log(req.query.body)
+  console.log(req.body.message)
+  //console.log(message)
   res.status(200).send(message)
 
   /*if (verifyPostData(req)) {
